@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="/user/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTH — Đăng ký học phần</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="screen-app">
+    <aside class="sidebar">
+      <div class="brand-mark">UT<span>H</span></div>
+      <a class="nav-item" href="index.html"><span class="ic">⌂</span> Trang chủ</a>
+      <a class="nav-item active" href="register.html"><span class="ic">✎</span> Đăng ký học phần</a>
+      <a class="nav-item" href="schedule.html"><span class="ic">▤</span> Lịch học đã đăng ký</a>
+      <a class="nav-item" href="curriculum.html"><span class="ic">◇</span> Chương trình khung</a>
+      <a class="nav-item" href="tuition.html"><span class="ic">$</span> Tra cứu công nợ</a>
+      <a class="nav-item" href="payment.html"><span class="ic">💳</span> Thanh toán học phí</a>
+      <a class="nav-item" href="support.html"><span class="ic">✉</span> Yêu cầu hỗ trợ</a>
+      <a class="nav-item" href="profile.html"><span class="ic">◍</span> Hồ sơ cá nhân</a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" href="login.html"><span class="ic">⇥</span> Đăng xuất</a>
+      <a class="nav-support" href="support.html">💬 Yêu cầu hỗ trợ</a>
+    </aside>
+
+    <main class="main">
+
+      <div class="topbar">
+        <div><h1>Đăng ký học phần</h1><div class="sub">Đợt đăng ký: 20/08 - 27/08/2026 · Còn 5 ngày</div></div>
+        <button class="btn-primary" style="white-space:nowrap;" onclick="toggleChatbot(true)">🤖 Chatbot gợi ý lịch học</button>
+      </div>
+
+      <div id="tabReg">
+        <div class="countdown-bar">
+          <div class="countdown-unit"><div class="countdown-num" id="cdDays">01</div><div class="countdown-label">Ngày</div></div>
+          <div class="countdown-unit"><div class="countdown-num" id="cdHours">11</div><div class="countdown-label">Giờ</div></div>
+          <div class="countdown-unit"><div class="countdown-num" id="cdMins">49</div><div class="countdown-label">Phút</div></div>
+          <div class="countdown-unit"><div class="countdown-num" id="cdSecs">23</div><div class="countdown-label">Giây</div></div>
+        </div>
+
+        <div class="panel">
+          <h3 class="section-title">Học phần đang chờ đăng ký</h3>
+          <div class="table-scroll">
+            <table class="reg-table">
+              <thead>
+                <tr><th></th><th>STT</th><th>Mã học phần</th><th>Tên học phần</th><th>TC</th><th>Bắt buộc</th><th>Điều kiện đăng ký</th></tr>
+              </thead>
+              <tbody id="courseTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="reg-split">
+          <div class="panel">
+            <h3 class="section-title">Lớp học phần đang chờ đăng ký</h3>
+            <label class="filter-check"><input type="checkbox" onchange="showToast('Đã lọc các lớp bị trùng lịch với lịch học hiện tại')"> Lọc tất cả lịch trùng</label>
+            <table class="reg-table" style="margin-top:10px;">
+              <thead><tr><th>STT</th><th>Tên lớp học phần</th><th>Đã đăng ký</th></tr></thead>
+              <tbody id="classTableBody">
+                <tr><td colspan="3" class="sub" style="text-align:center; padding:20px;">Chọn Học phần để xem chi tiết</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <h3 class="section-title" style="margin-bottom:0;">Chi tiết lớp học phần</h3>
+              <button class="btn-outline" onclick="showToast('Không có lớp nào bị trùng lịch với lựa chọn hiện tại')">XEM LỊCH TRÙNG</button>
+            </div>
+            <table class="reg-table">
+              <thead><tr><th>Lịch học</th></tr></thead>
+              <tbody id="classDetailBody">
+                <tr><td class="sub" style="text-align:center; padding:20px;">Chọn lớp học phần để xem chi tiết</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; margin:24px 0 32px;">
+          <button class="btn-primary" id="btnDangKy" disabled style="padding:14px 60px; font-size:14px; letter-spacing:.03em; background:#C9C7BE;" onclick="confirmDangKy()">ĐĂNG KÝ</button>
+        </div>
+
+        <div class="panel">
+          <h3 class="section-title">Học phần đã đăng ký trong học kỳ này</h3>
+          <div class="table-scroll">
+            <table class="reg-table">
+              <thead>
+                <tr><th>Thao tác</th><th>STT</th><th>Mã lớp HP</th><th>Tên Môn học/HP</th><th>Lớp dự kiến</th><th>TC</th><th>Học phí</th><th>Hạn nộp</th><th>Thu</th><th>Trạng thái</th></tr>
+              </thead>
+              <tbody id="registeredTableBody"></tbody>
+              <tfoot>
+                <tr class="total-row"><td colspan="5">Tổng</td><td id="totalTC">0</td><td id="totalFee">0 đ</td><td colspan="3"></td></tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <nav class="mobile-nav">
+      <a class="" href="index.html"><span class="ic">⌂</span>Trang chủ</a>
+      <a class="active" href="register.html"><span class="ic">✎</span>Đăng ký</a>
+      <a class="" href="schedule.html"><span class="ic">▦</span>Lịch học</a>
+      <a class="" href="profile.html"><span class="ic">◍</span>Hồ sơ</a>
+    </nav>
+  </div>
+
+  <button class="chatbot-fab" onclick="toggleChatbot()">💬</button>
+  <div class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-head">🤖 Chatbot gợi ý lịch học</div>
+    <div class="chatbot-body" id="chatbotBody">
+      <div class="chat-bubble bot">Chào bạn! Bạn muốn mình gợi ý lịch học theo cách nào?</div>
+      <div class="chat-options">
+        <button onclick="chatReply('Theo chương trình khung')">📘 Theo chương trình khung</button>
+        <button onclick="chatReply('Theo tiến độ học tập')">📈 Theo tiến độ học tập</button>
+        <button onclick="chatReply('Theo yêu cầu riêng')">✍️ Theo yêu cầu riêng (rảnh sáng thứ 2-4-6)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

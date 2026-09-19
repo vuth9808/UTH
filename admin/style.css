@@ -1,0 +1,33 @@
+/* --- KHẮC PHỤC LỖI KHÔNG BẤM ĐƯỢC MENU --- */
+  .sidebar { 
+    width: 280px; 
+    background: #fff; 
+    border-right: 1px solid #E2E8F0; 
+    display: flex; 
+    flex-direction: column; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    height: 100vh; 
+    z-index: 2000; /* Đẩy tầng hiển thị của menu lên cao nhất */
+    transform: translateX(-100%); 
+    transition: transform 0.3s ease; 
+    box-shadow: 4px 0 16px rgba(0,0,0,0.05); 
+  }
+  .sidebar.open { 
+    transform: translateX(0); 
+  }
+  .sidebar-backdrop { 
+    position: fixed; 
+    inset: 0; 
+    background: rgba(15, 23, 42, 0.4); 
+    z-index: 1500; /* Đặt thấp hơn menu một bậc nhưng cao hơn nội dung trang */
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.3s ease; 
+  }
+  .sidebar-backdrop.show { 
+    opacity: 1; 
+    pointer-events: auto; /* Cho phép nhận sự kiện click khi mở */
+  }

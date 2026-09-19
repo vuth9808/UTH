@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="/user/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTH — Trang chủ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    if (sessionStorage.getItem("userLoggedIn") !== "true") {
+      sessionStorage.setItem("authWarning", "Vui lòng đăng nhập để truy cập trang này.");
+      window.location.replace("login.html");
+    }
+  })();
+</script>
+</head>
+<body>
+  <div id="screen-app">
+    <aside class="sidebar">
+      <div class="brand-mark">UT<span>H</span></div>
+      <a class="nav-item active" href="index.html"><span class="ic">⌂</span> Trang chủ</a>
+      <a class="nav-item" href="register.html"><span class="ic">✎</span> Đăng ký học phần</a>
+      <a class="nav-item" href="schedule.html"><span class="ic">▤</span> Lịch học đã đăng ký</a>
+      <a class="nav-item" href="curriculum.html"><span class="ic">◇</span> Chương trình khung</a>
+      <a class="nav-item" href="tuition.html"><span class="ic">$</span> Tra cứu công nợ</a>
+      <a class="nav-item" href="payment.html"><span class="ic">💳</span> Thanh toán học phí</a>
+      <a class="nav-item" href="support.html"><span class="ic">✉</span> Yêu cầu hỗ trợ</a>
+      <a class="nav-item" href="profile.html"><span class="ic">◍</span> Hồ sơ cá nhân</a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" href="login.html" onclick="logoutUser(event)"><span class="ic">⇥</span> Đăng xuất</a>
+      <a class="nav-support" href="support.html">💬 Yêu cầu hỗ trợ</a>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div><h1>Xin chào, Nguyễn Văn A</h1><div class="sub">Mã SV: SV2024001 · Học kỳ 1, 2026-2027</div></div>
+        <a class="avatar" href="profile.html" title="Hồ sơ cá nhân">NA</a>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="label">Môn đã đăng ký</div><div class="value">6</div></div>
+        <div class="stat-card"><div class="label">Tổng số tín chỉ</div><div class="value">18</div></div>
+        <div class="stat-card"><div class="label">Lịch học trong tuần</div><div class="value">6</div></div>
+        <div class="stat-card warn"><div class="label">Hạn đăng ký còn</div><div class="value">5 ngày</div></div>
+      </div>
+
+      <div class="portal-row">
+        <div class="panel" style="margin-bottom:0;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h3>Kết quả học tập</h3>
+            <select style="padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:12.5px;"><option>Học kỳ 1 năm học 2026-2027</option></select>
+          </div>
+          <div class="empty-state">
+            <div class="empty-icon">🗂</div>
+            <div class="empty-text">Không có dữ liệu cho học kỳ này!</div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-bottom:0;">
+          <h3 style="text-align:center; margin-bottom:18px;">Tiến độ học tập</h3>
+          <div class="donut" style="--pct:55.7%;">
+            <div class="donut-inner">
+              <div class="donut-value">Đã đạt: 78/140</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-bottom:0;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h3>Lớp học phần</h3>
+            <select style="padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:12.5px;"><option>Học kỳ 1 năm học 2026-2027</option></select>
+          </div>
+          <div class="class-table">
+            <div class="class-table-head"><span>Môn học</span><span>Tín chỉ</span></div>
+            <div class="class-table-row"><span>Lập trình Web</span><span>3</span></div>
+            <div class="class-table-row"><span>Cơ sở dữ liệu</span><span>3</span></div>
+            <div class="class-table-row"><span>Toán rời rạc</span><span>3</span></div>
+            <div class="class-table-row"><span>Tiếng Anh chuyên ngành</span><span>2</span></div>
+            <div class="class-table-row"><span>Hệ điều hành</span><span>4</span></div>
+            <div class="class-table-row"><span>Mạng máy tính</span><span>3</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <h3>Lịch học tuần này</h3>
+          <a href="schedule.html" style="font-size:12.5px; color:var(--teal); font-weight:600;">Xem chi tiết ›</a>
+        </div>
+        <div class="week-grid">
+          <div class="week-day today">
+            <div class="day-label">Thứ 2 <span class="today-tag">Hôm nay</span></div>
+            <div class="class-chip">Lập trình Web<br><span>07:30-09:30 · P.A203</span></div>
+          </div>
+          <div class="week-day">
+            <div class="day-label">Thứ 3</div>
+            <div class="class-chip">Hệ điều hành<br><span>07:30-09:30 · P.A105</span></div>
+            <div class="class-chip">Cơ sở dữ liệu<br><span>13:30-15:30 · P.B105</span></div>
+          </div>
+          <div class="week-day">
+            <div class="day-label">Thứ 4</div>
+            <div class="class-chip">Toán rời rạc<br><span>09:45-11:45 · P.A101</span></div>
+          </div>
+          <div class="week-day">
+            <div class="day-label">Thứ 5</div>
+            <div class="class-chip">Mạng máy tính<br><span>09:45-11:45 · P.C301</span></div>
+          </div>
+          <div class="week-day">
+            <div class="day-label">Thứ 6</div>
+            <div class="class-chip">Tiếng Anh CN<br><span>13:30-15:30 · P.B202</span></div>
+          </div>
+          <div class="week-day empty">
+            <div class="day-label">Thứ 7</div>
+            <div class="no-class">Không có lịch học</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Thông báo gần đây</h3>
+        <div class="notif-row">Đăng ký học phần học kỳ 1 mở từ 20/08 đến 27/08/2026.</div>
+        <div class="notif-row">Hạn hủy đăng ký học phần: trước 05/09/2026.</div>
+        <div class="notif-row">Hạn đóng học phí: 15/09/2026.</div>
+      </div>
+    </main>
+
+    <nav class="mobile-nav">
+      <a class="active" href="index.html"><span class="ic">⌂</span>Trang chủ</a>
+      <a class="" href="register.html"><span class="ic">✎</span>Đăng ký</a>
+      <a class="" href="schedule.html"><span class="ic">▦</span>Lịch học</a>
+      <a class="" href="profile.html"><span class="ic">◍</span>Hồ sơ</a>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+  <script>
+    function logoutUser(event) {
+      if (!confirm('Bạn có chắc muốn đăng xuất?')) return;
+      event.preventDefault();
+      sessionStorage.removeItem("userLoggedIn");
+      sessionStorage.removeItem("userUsername");
+      window.location.replace("login.html");
+    }
+  </script>
+</body>
+</html>

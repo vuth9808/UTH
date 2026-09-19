@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="/admin/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Nếu phiên Admin còn hiệu lực thì không cần đăng nhập lại.
+    if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+      window.location.replace('index.html');
+    }
+  </script>
+<title>UTH — Đăng nhập Quản lý Đào tạo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+  body { display: flex; min-height: 100vh; background-color: #EEF2F6; color: #333; }
+  
+  .login-layout { display: flex; width: 100%; }
+  .login-left { flex: 1 1 45%; background: linear-gradient(135deg, #004D40 0%, #00897B 100%); color: #fff; padding: 60px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+  .login-left::before { content: ""; position: absolute; right: -50px; bottom: -50px; width: 300px; height: 300px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.1); }
+  .login-left::after { content: ""; position: absolute; right: -150px; bottom: -150px; width: 500px; height: 500px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.05); }
+  
+  .brand-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 40px; position: relative; z-index: 2; }
+  .uth-text { font-family: serif; font-size: 42px; font-weight: 700; color: #fff; }
+  .uth-text span { color: #FFCDD2; }
+  .uth-sub { font-size: 11px; font-weight: 700; color: #FFCDD2; line-height: 1.2; letter-spacing: 0.05em; }
+  
+  .login-left h1 { font-size: 36px; line-height: 1.2; margin-bottom: 16px; position: relative; z-index: 2; }
+  .login-left p { font-size: 15px; color: #E0F2F1; line-height: 1.6; max-width: 400px; position: relative; z-index: 2; }
+
+  .login-right { flex: 1 1 55%; background: #fff; display: flex; align-items: center; justify-content: center; padding: 40px; }
+  .login-box { width: 100%; max-width: 400px; }
+  .login-box h2 { font-size: 28px; color: #00897B; margin-bottom: 8px; }
+  .login-box .sub { color: #666; font-size: 14.5px; margin-bottom: 32px; }
+  
+  .error-banner { display: none; background: #FFEBEE; color: #D32F2F; border-radius: 8px; padding: 12px 14px; font-size: 13.5px; font-weight: 500; margin-bottom: 20px; }
+  .field { margin-bottom: 20px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 8px; }
+  .field input { width: 100%; padding: 12px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14.5px; outline: none; transition: 0.2s; }
+  .field input:focus { border-color: #00897B; box-shadow: 0 0 0 3px rgba(0,137,123,0.1); }
+  
+  .btn-primary { width: 100%; padding: 14px; background: #00897B; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+  .btn-primary:hover { background: #00695C; }
+
+  .auth-toast {
+  position: fixed; top: 24px; left: 50%;
+  transform: translate(-50%, -20px);
+  background: #FFF8E1; color: #8D6E00;
+  border: 1px solid #FFE082; border-left: 4px solid #F9A825;
+  padding: 12px 18px; border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s;
+  z-index: 9999; max-width: 90%;
+}
+.auth-toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+  <div class="auth-toast" id="authToast"></div>
+  <div class="login-layout">
+    <div class="login-left">
+      <div class="brand-logo">
+        <span class="uth-text">UT<span>H</span></span>
+        <div class="uth-sub">UNIVERSITY<br>OF TRANSPORT<br>HOCHIMINH CITY</div>
+      </div>
+      <h1>Cổng thông tin<br>quản lý đào tạo</h1>
+      <p>Dành riêng cho Ban giáo vụ và Phòng đào tạo UTH. Đăng nhập để quản lý học phần, giảng viên và sinh viên.</p>
+    </div>
+    
+    <div class="login-right">
+      <div class="login-box">
+        <h2>Đăng nhập Quản trị</h2>
+        <p class="sub">Nhập thông tin tài khoản Admin để tiếp tục</p>
+        
+        <div id="loginError" class="error-banner"></div>
+        
+        <div class="field">
+          <label>Tài khoản quản trị</label>
+          <input id="username" type="text" placeholder="VD: admin">
+        </div>
+        
+        <div class="field">
+          <label>Mật khẩu</label>
+          <input id="password" type="password" placeholder="••••••••">
+        </div>
+        
+        <button class="btn-primary" onclick="handleLogin()">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function handleLogin() {
+    const u = document.getElementById('username').value.trim().toLowerCase();
+    const p = document.getElementById('password').value.trim();
+    const err = document.getElementById('loginError');
+    
+    if(!u || !p){ 
+      err.textContent = "⚠ Vui lòng nhập đầy đủ tài khoản và mật khẩu."; 
+      err.style.display = 'block'; 
+      return; 
+    }
+    
+    if(u !== "admin") {
+      err.textContent = "⚠ Tài khoản không có quyền truy cập hệ thống quản lý."; 
+      err.style.display = 'block'; 
+      return; 
+    }
+
+    if(p === "sai"){ 
+      err.textContent = "⚠ Sai mật khẩu. Vui lòng thử lại."; 
+      err.style.display = 'block'; 
+      return; 
+    }
+
+    // Chỉ đánh dấu đăng nhập sau khi vượt qua kiểm tra tài khoản.
+    sessionStorage.setItem('adminAuthenticated', 'true');
+    window.location.replace("index.html");
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+  const msg = sessionStorage.getItem("authWarning");
+  if (!msg) return;
+  sessionStorage.removeItem("authWarning"); // chỉ hiện 1 lần, F5 không hiện lại
+  const t = document.getElementById("authToast");
+  t.textContent = "⚠ " + msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 4000);
+});
+</script>
+</body>
+</html>

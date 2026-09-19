@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="/user/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTH — Yêu cầu hỗ trợ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="screen-app">
+    <aside class="sidebar">
+      <div class="brand-mark">UT<span>H</span></div>
+      <a class="nav-item" href="index.html"><span class="ic">⌂</span> Trang chủ</a>
+      <a class="nav-item" href="register.html"><span class="ic">✎</span> Đăng ký học phần</a>
+      <a class="nav-item" href="schedule.html"><span class="ic">▤</span> Lịch học đã đăng ký</a>
+      <a class="nav-item" href="curriculum.html"><span class="ic">◇</span> Chương trình khung</a>
+      <a class="nav-item" href="tuition.html"><span class="ic">$</span> Tra cứu công nợ</a>
+      <a class="nav-item" href="payment.html"><span class="ic">💳</span> Thanh toán học phí</a>
+      <a class="nav-item active" href="support.html"><span class="ic">✉</span> Yêu cầu hỗ trợ</a>
+      <a class="nav-item" href="profile.html"><span class="ic">◍</span> Hồ sơ cá nhân</a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" href="login.html"><span class="ic">⇥</span> Đăng xuất</a>
+      <a class="nav-support" href="support.html">💬 Yêu cầu hỗ trợ</a>
+    </aside>
+
+    <main class="main">
+
+      <div class="topbar"><div><h1>Yêu cầu hỗ trợ</h1><div class="sub">Gửi yêu cầu tới Phòng đào tạo khi cần hỗ trợ</div></div></div>
+      <div class="grid-2col">
+        <div class="panel">
+          <h3>Tạo yêu cầu mới</h3>
+          <div class="field"><label>Tiêu đề</label><input id="supTitle" type="text" placeholder="VD: Xin đăng ký vượt giới hạn tín chỉ"></div>
+          <div class="field"><label>Nội dung</label><textarea id="supContent" placeholder="Mô tả chi tiết yêu cầu của bạn..."></textarea></div>
+          <div class="field"><label>Lý do</label><input id="supReason" type="text" placeholder="VD: Cần tốt nghiệp sớm"></div>
+          <button class="btn-primary full" onclick="submitSupport()">Gửi yêu cầu hỗ trợ</button>
+        </div>
+        <div class="panel">
+          <h3>Yêu cầu đã gửi</h3>
+          <div id="supportListEmpty" class="sub">Bạn chưa gửi yêu cầu nào trong học kỳ này.</div>
+          <div id="supportList"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <nav class="mobile-nav">
+      <a class="" href="index.html"><span class="ic">⌂</span>Trang chủ</a>
+      <a class="" href="register.html"><span class="ic">✎</span>Đăng ký</a>
+      <a class="" href="schedule.html"><span class="ic">▦</span>Lịch học</a>
+      <a class="" href="profile.html"><span class="ic">◍</span>Hồ sơ</a>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

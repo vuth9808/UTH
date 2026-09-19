@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="/user/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTH — Thanh toán trực tuyến</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .payment-page{ min-height:100vh; background:linear-gradient(160deg,#152238 0%, #1F7A6C 140%); padding:40px 20px; display:flex; justify-content:center; }
+  .payment-card{ background:#fff; border-radius:20px; max-width:640px; width:100%; padding:40px 44px 44px; height:fit-content; }
+  .payment-logo{ font-family:var(--font-display); font-size:30px; font-weight:600; color:var(--teal); line-height:1.15; margin-bottom:26px; }
+  .payment-logo small{ display:block; font-family:var(--font-body); font-size:11px; letter-spacing:0.06em; color:var(--ink-soft); font-weight:700; }
+  .payment-card h2{ font-size:20px; color:var(--teal); text-align:center; margin-bottom:26px; }
+  .payment-field{ display:flex; justify-content:space-between; padding:8px 0; font-size:14px; }
+  .payment-field b{ font-weight:600; }
+  .payment-box{ border:1px solid var(--line); border-radius:12px; margin-top:22px; overflow:hidden; }
+  .payment-box-head{ background:#F0EEE6; padding:12px 18px; font-size:13.5px; font-weight:600; }
+  .payment-box-body{ padding:18px; }
+  .payment-item{ display:flex; align-items:flex-start; gap:10px; font-size:13.8px; margin-bottom:14px; }
+  .payment-item input{ margin-top:3px; }
+  .payment-totals{ border-top:1px solid var(--line); padding-top:14px; margin-top:6px; }
+  .payment-totals .row{ display:flex; justify-content:space-between; font-size:14px; padding:5px 0; }
+  .payment-totals .row.final{ font-weight:700; font-size:16px; color:var(--teal); }
+  .btn-confirm{ width:100%; margin-top:26px; padding:14px; background:var(--teal); color:#fff; border-radius:10px; font-size:15px; font-weight:600; }
+  .btn-confirm:hover{ background:#175f54; }
+  .payment-back{ display:block; text-align:center; margin-top:18px; font-size:13px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+  <div class="payment-page">
+    <div class="payment-card">
+      <div class="payment-logo">UTH<small>UNIVERSITY OF TRANSPORT HOCHIMINH CITY</small></div>
+      <h2>THANH TOÁN TRỰC TUYẾN</h2>
+
+      <div class="payment-field"><span>Mã số SV</span><b>SV2024001</b></div>
+      <div class="payment-field"><span>Họ và tên</span><b>Nguyễn Văn A</b></div>
+      <div class="payment-field"><span>Ngành</span><b>Công nghệ thông tin</b></div>
+      <div class="payment-field"><span>Chương trình đào tạo</span><b>Đại trà</b></div>
+
+      <div class="payment-box">
+        <div class="payment-box-head">Học phí học kỳ 1, 2026-2027</div>
+        <div class="payment-box-body">
+          <div class="payment-item">
+            <input type="checkbox" id="item1" checked>
+            <label for="item1">Học phí 18 tín chỉ (6 học phần đã đăng ký): 8.100.000 đ</label>
+          </div>
+          <div class="payment-totals">
+            <div class="row"><span>Tổng số tiền</span><span>8.100.000 đ</span></div>
+            <div class="row final"><span>Số tiền thanh toán</span><span id="payAmount">8.100.000 đ</span></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-confirm" onclick="confirmPayment()">Xác nhận thanh toán</button>
+      <a class="payment-back" href="tuition.html">‹ Quay lại Tra cứu công nợ</a>
+    </div>
+  </div>
+
+<script>
+  const cb = document.getElementById('item1');
+  const payAmount = document.getElementById('payAmount');
+  cb.addEventListener('change', () => {
+    payAmount.textContent = cb.checked ? '8.100.000 đ' : '0 đ';
+  });
+  function confirmPayment(){
+    if(!cb.checked){ alert('Vui lòng chọn khoản cần thanh toán.'); return; }
+    alert('Thanh toán thành công! (đây là bản demo, chưa kết nối cổng thanh toán thật)');
+    window.location.href = 'tuition.html';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="/user/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTH — Đăng nhập</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144;500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+  
+  // Nếu User đã đăng nhập thì không cần quay lại màn hình login
+  (function () {
+    if (sessionStorage.getItem("userLoggedIn") === "true") {
+      window.location.replace("index.html");
+    }
+  })();
+</script>
+<style>
+  .auth-toast {
+  position: fixed; top: 24px; left: 50%;
+  transform: translate(-50%, -20px);
+  background: #FFF8E1; color: #8D6E00;
+  border: 1px solid #FFE082; border-left: 4px solid #F9A825;
+  padding: 12px 18px; border-radius: 10px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s;
+  z-index: 9999; max-width: 90%;
+}
+.auth-toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+
+</head>
+<body>
+  <div class="auth-toast" id="authToast"></div>
+  <div id="screen-login">
+    <div class="login-brand">
+      <div class="brand-mark">UT<span>H</span></div>
+      <h1>Cổng thông tin đăng ký học phần</h1>
+      <p>Dành riêng cho sinh viên UTH — đăng nhập để đăng ký học phần, tra cứu lịch học và công nợ học phí.</p>
+    </div>
+    <div class="login-form-side">
+      <div class="login-card">
+        <h2>Đăng nhập</h2>
+        <p class="sub">Nhập thông tin tài khoản sinh viên để tiếp tục</p>
+        <div class="error-banner" id="loginError">⚠ Sai tài khoản hoặc mật khẩu. Vui lòng thử lại.</div>
+        <div class="field"><label for="username">Tài khoản</label><input id="username" type="text" placeholder="Mã số sinh viên"></div>
+        <div class="field"><label for="password">Mật khẩu</label><input id="password" type="password" placeholder="••••••••"></div>
+        <div class="row-between">
+          <label><input type="checkbox" id="rememberLogin"> Ghi nhớ đăng nhập</label>
+          <a href="#">Quên mật khẩu?</a>
+        </div>
+        <button class="btn-primary full" onclick="handleLogin()">Đăng nhập</button>
+        <p class="hint-foot">Gặp sự cố khi đăng nhập? Liên hệ Phòng đào tạo</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function handleLogin(){
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value.trim();
+    const err = document.getElementById('loginError');
+
+    err.classList.remove('show');
+
+    if(!u || !p){
+      err.textContent = "⚠ Vui lòng nhập đầy đủ tài khoản và mật khẩu.";
+      err.classList.add('show');
+      return;
+    }
+
+    
+    if(p === "sai"){
+      err.textContent = "⚠ Sai tài khoản hoặc mật khẩu. Vui lòng thử lại.";
+      err.classList.add('show');
+      return;
+    }
+
+    sessionStorage.setItem("userLoggedIn", "true");
+    sessionStorage.setItem("userUsername", u);
+
+    window.location.replace("index.html");
+  }
+
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Enter") handleLogin();
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+  const msg = sessionStorage.getItem("authWarning");
+  if (!msg) return;
+  sessionStorage.removeItem("authWarning"); // chỉ hiện 1 lần, F5 không hiện lại
+  const t = document.getElementById("authToast");
+  t.textContent = "⚠ " + msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 4000);
+});
+</script>
+</body>
+</html>

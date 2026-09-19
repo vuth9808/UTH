@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<base href="/user/">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UTH — Chương trình khung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="screen-app">
+    <aside class="sidebar">
+      <div class="brand-mark">UT<span>H</span></div>
+      <a class="nav-item" href="index.html"><span class="ic">⌂</span> Trang chủ</a>
+      <a class="nav-item" href="register.html"><span class="ic">✎</span> Đăng ký học phần</a>
+      <a class="nav-item" href="schedule.html"><span class="ic">▤</span> Lịch học đã đăng ký</a>
+      <a class="nav-item active" href="curriculum.html"><span class="ic">◇</span> Chương trình khung</a>
+      <a class="nav-item" href="tuition.html"><span class="ic">$</span> Tra cứu công nợ</a>
+      <a class="nav-item" href="payment.html"><span class="ic">💳</span> Thanh toán học phí</a>
+      <a class="nav-item" href="support.html"><span class="ic">✉</span> Yêu cầu hỗ trợ</a>
+      <a class="nav-item" href="profile.html"><span class="ic">◍</span> Hồ sơ cá nhân</a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" href="login.html"><span class="ic">⇥</span> Đăng xuất</a>
+      <a class="nav-support" href="support.html">💬 Yêu cầu hỗ trợ</a>
+    </aside>
+
+    <main class="main">
+
+      <div class="topbar"><div><h1>Chương trình khung</h1><div class="sub">Ngành Công nghệ thông tin — Khóa 2024</div></div></div>
+      <div class="curr-group">
+        <h4>Học kỳ 1</h4>
+        <div class="curr-row"><span>Nhập môn lập trình — 3TC</span><span class="tag done">Đã học</span></div>
+        <div class="curr-row"><span>Toán cao cấp 1 — 3TC</span><span class="tag done">Đã học</span></div>
+      </div>
+      <div class="curr-group">
+        <h4>Học kỳ 2 (hiện tại)</h4>
+        <div class="curr-row"><span>Lập trình Web — 3TC</span><span class="tag doing">Đang học</span></div>
+        <div class="curr-row"><span>Cơ sở dữ liệu — 3TC</span><span class="tag doing">Đang học</span></div>
+        <div class="curr-row"><span>Cấu trúc dữ liệu &amp; Giải thuật — 4TC</span><span class="tag todo">Chưa đăng ký</span></div>
+      </div>
+      <div class="curr-group">
+        <h4>Học kỳ 3</h4>
+        <div class="curr-row"><span>Mạng máy tính — 3TC</span><span class="tag todo">Chưa mở lớp</span></div>
+        <div class="curr-row"><span>Hệ điều hành — 4TC</span><span class="tag todo">Chưa mở lớp</span></div>
+      </div>
+
+    </main>
+
+    <nav class="mobile-nav">
+      <a class="" href="index.html"><span class="ic">⌂</span>Trang chủ</a>
+      <a class="" href="register.html"><span class="ic">✎</span>Đăng ký</a>
+      <a class="" href="schedule.html"><span class="ic">▦</span>Lịch học</a>
+      <a class="" href="profile.html"><span class="ic">◍</span>Hồ sơ</a>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
